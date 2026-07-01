@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Light theme: warm neumorphic base (soft, low-contrast, single-hue) */
+  --color-surface: #f0f0f3;
+  --color-surface-2: #e8e8ec;
+  --color-surface-3: #e2e2e7;
+  --color-text-primary: #1c1c24;
+  --color-text-secondary: rgba(28,28,36,0.62);
+  --color-text-muted: rgba(28,28,36,0.42);
+  --color-border-base: rgba(28,28,36,0.08);
+  --color-border-strong: rgba(28,28,36,0.14);
+  --color-brand: #6c63ff;
+  --color-brand-2: #a78bfa;
+  --color-app-bg: #ececf0;
+
+  /* Neumorphic shadow pair (light source: top-left) */
+  --neu-light: #ffffff;
+  --neu-dark: #c8c8d0;
+}
+
+.dark {
+  /* Dark theme: true grayscale per provided reference (#4d4d4d -> #000000) */
+  --color-surface: #1a1a1a;
+  --color-surface-2: #131313;
+  --color-surface-3: #0d0d0d;
+  --color-text-primary: #f2f2f2;
+  --color-text-secondary: rgba(242,242,242,0.62);
+  --color-text-muted: rgba(242,242,242,0.42);
+  --color-border-base: rgba(255,255,255,0.07);
+  --color-border-strong: rgba(255,255,255,0.13);
+  --color-brand: #6c63ff;
+  --color-brand-2: #a78bfa;
+  --color-app-bg: #000000;
+
+  --neu-light: #2c2c2c;
+  --neu-dark: #000000;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  html, body {
+    background-color: var(--color-app-bg);
+    color: var(--color-text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(108,99,255,0.3); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(108,99,255,0.6); }
+}
+
+@layer utilities {
+  .glass {
+    background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border-base);
+  }
+  .glass-strong {
+    background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--color-border-strong);
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .avatar-ring {
+    box-shadow: 0 0 0 2px var(--color-app-bg), 0 0 0 4px rgba(108,99,255,0.5);
+  }
+  .glow {
+    box-shadow: 0 0 30px rgba(108,99,255,0.2);
+  }
+
+  /* ---- Neumorphism ---- */
+  /* Raised surface: soft dual shadow, light from top-left */
+  .neu-raised {
+    background: var(--color-surface);
+    box-shadow:
+      6px 6px 14px color-mix(in srgb, var(--neu-dark) 55%, transparent),
+      -6px -6px 14px color-mix(in srgb, var(--neu-light) 65%, transparent);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .neu-raised-sm {
+    background: var(--color-surface);
+    box-shadow:
+      3px 3px 8px color-mix(in srgb, var(--neu-dark) 50%, transparent),
+      -3px -3px 8px color-mix(in srgb, var(--neu-light) 60%, transparent);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  /* Pressed/inset surface: for active states, inputs */
+  .neu-inset {
+    background: var(--color-surface);
+    box-shadow:
+      inset 4px 4px 10px color-mix(in srgb, var(--neu-dark) 50%, transparent),
+      inset -4px -4px 10px color-mix(in srgb, var(--neu-light) 60%, transparent);
+  }
+  /* Flat neumorphic chip — minimal shadow, for dense lists */
+  .neu-flat {
+    background: var(--color-surface);
+    box-shadow:
+      2px 2px 5px color-mix(in srgb, var(--neu-dark) 40%, transparent),
+      -2px -2px 5px color-mix(in srgb, var(--neu-light) 50%, transparent);
+  }
+  .neu-pressable {
+    transition: box-shadow 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  }
+  .neu-pressable:hover {
+    box-shadow:
+      2px 2px 6px color-mix(in srgb, var(--neu-dark) 35%, transparent),
+      -2px -2px 6px color-mix(in srgb, var(--neu-light) 45%, transparent);
+  }
+  .neu-raised:active, .neu-pressable:active {
+    box-shadow:
+      inset 3px 3px 8px color-mix(in srgb, var(--neu-dark) 50%, transparent),
+      inset -3px -3px 8px color-mix(in srgb, var(--neu-light) 60%, transparent);
+    transform: scale(0.98);
+  }
+  .neu-pill-active {
+    background: var(--color-text-primary);
+    color: var(--color-app-bg);
+    box-shadow:
+      3px 3px 8px color-mix(in srgb, var(--neu-dark) 45%, transparent),
+      -2px -2px 6px color-mix(in srgb, var(--neu-light) 40%, transparent);
+  }
+
+  /* 3D hover tilt — minimal, GPU-friendly */
+  .tilt-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+    will-change: transform;
+  }
+  .tilt-3d:hover {
+    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-2px) scale(1.01);
+  }
+  .card-3d {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .card-3d:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px -12px rgba(108, 99, 255, 0.25);
+  }
+  .float-nav {
+    box-shadow:
+      8px 8px 20px color-mix(in srgb, var(--neu-dark) 45%, transparent),
+      -8px -8px 20px color-mix(in srgb, var(--neu-light) 55%, transparent);
+  }
+}

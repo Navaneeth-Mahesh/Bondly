@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <linearGradient id="bondly-grad-a" x1="4" y1="6" x2="30" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="bondly-grad-b" x1="14" y1="10" x2="38" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+  </defs>
+  <path d="M16.5 10C10.7 10 6 14.7 6 20.5C6 26.3 10.7 31 16.5 31C20.4 31 23.8 28.85 25.6 25.7" stroke="url(#bondly-grad-a)" stroke-width="6.4" stroke-linecap="round" fill="none"/>
+  <path d="M23.5 30C29.3 30 34 25.3 34 19.5C34 13.7 29.3 9 23.5 9C19.6 9 16.2 11.15 14.4 14.3" stroke="url(#bondly-grad-b)" stroke-width="6.4" stroke-linecap="round" fill="none"/>
+</svg>
